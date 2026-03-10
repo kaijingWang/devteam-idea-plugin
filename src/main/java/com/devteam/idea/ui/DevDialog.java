@@ -1,6 +1,7 @@
 package com.devteam.idea.ui;
 
 import com.devteam.idea.services.DevTeamService;
+import com.devteam.idea.utils.NodeChecker;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.wm.ToolWindow;
@@ -22,6 +23,16 @@ public class DevDialog extends DialogWrapper {
         this.project = project;
         this.mode = mode;
         setTitle("DevTeam - " + getModeTitle());
+        
+        // Check system requirements
+        NodeChecker.SystemRequirements req = NodeChecker.checkRequirements();
+        if (!req.isValid()) {
+            JOptionPane.showMessageDialog(null, 
+                req.getMessage(), 
+                "System Requirements", 
+                JOptionPane.WARNING_MESSAGE);
+        }
+        
         init();
     }
 

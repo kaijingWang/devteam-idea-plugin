@@ -10,6 +10,7 @@ public class DevTeamToolWindow {
     private final Project project;
     private JPanel mainPanel;
     private JTextArea logArea;
+    private ProgressPanel progressPanel;
 
     public DevTeamToolWindow(Project project) {
         this.project = project;
@@ -24,6 +25,9 @@ public class DevTeamToolWindow {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
         titleLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
+        // Progress panel
+        progressPanel = new ProgressPanel();
+
         // Log area
         logArea = new JTextArea();
         logArea.setEditable(false);
@@ -35,11 +39,19 @@ public class DevTeamToolWindow {
         // Toolbar
         JPanel toolbar = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton clearButton = new JButton("Clear");
-        clearButton.addActionListener(e -> logArea.setText(""));
+        clearButton.addActionListener(e -> clearLog());
+        JButton stopButton = new JButton("Stop");
+        stopButton.addActionListener(e -> stopExecution());
         toolbar.add(clearButton);
+        toolbar.add(stopButton);
+
+        // Top panel (title + progress)
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.add(titleLabel, BorderLayout.NORTH);
+        topPanel.add(progressPanel, BorderLayout.CENTER);
 
         // Add components
-        mainPanel.add(titleLabel, BorderLayout.NORTH);
+        mainPanel.add(topPanel, BorderLayout.NORTH);
         mainPanel.add(scrollPane, BorderLayout.CENTER);
         mainPanel.add(toolbar, BorderLayout.SOUTH);
     }
@@ -56,6 +68,26 @@ public class DevTeamToolWindow {
     }
 
     public void clearLog() {
-        SwingUtilities.invokeLater(() -> logArea.setText(""));
+        SwingUtilities.invokeLater(() -> {
+            logArea.setText("");
+            progressPanel.reset();
+        });
+    }
+
+    public void setProgress(int value) {
+        progressPanel.setProgress(value);
+    }
+
+    public void setStatus(String status) {
+        progressPanel.setStatus(status);
+    }
+
+    public void setAgent(String agent) {
+        progressPanel.setAgent(agent);
+    }
+
+    private void stopExecution() {
+        // TODO: Implement stop functionality
+        appendLog("\n⏸️ Stopping execution...");
     }
 }

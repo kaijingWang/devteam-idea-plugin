@@ -1,0 +1,119 @@
+<idea-plugin>
+    <id>com.devteam.idea</id>
+    <name>DevTeam</name>
+    <version>3.0.0</version>
+    <vendor email="wkj11250412@outlook.com" url="https://github.com/kaijingWang/DevTeam">
+        DevTeam
+    </vendor>
+
+    <description><![CDATA[
+    <h1>DevTeam - AI-Powered Development Team in Your IDE</h1>
+    
+    <p>Transform your development workflow with 8 professional AI agents working together.</p>
+    
+    <h2>Features</h2>
+    <ul>
+        <li><b>8 Professional Agents:</b> PM, Architect, UI Designer, API Designer, Backend, Frontend, QA, Git</li>
+        <li><b>Parallel Execution:</b> 3-5x faster with intelligent parallel processing</li>
+        <li><b>Iteration Optimization:</b> Auto-fix bugs until complete</li>
+        <li><b>UI Refinement:</b> Interactive UI optimization</li>
+        <li><b>Auto Code Fixing:</b> Fix common issues automatically</li>
+        <li><b>Code Validation:</b> TypeScript, ESLint, build checks</li>
+        <li><b>Complete Documentation:</b> PRD, Architecture, API, UI Design</li>
+    </ul>
+    
+    <h2>Quick Start</h2>
+    <ol>
+        <li>Right-click on project/folder</li>
+        <li>Select "DevTeam" → "Quick Development"</li>
+        <li>Enter your requirement</li>
+        <li>Watch AI agents work!</li>
+    </ol>
+    
+    <h2>Requirements</h2>
+    <ul>
+        <li>Node.js 18+ (for DevTeam CLI)</li>
+        <li>Claude API Key</li>
+    </ul>
+    ]]></description>
+
+    <change-notes><![CDATA[
+    <h2>Version 3.0.0</h2>
+    <ul>
+        <li>Initial release</li>
+        <li>8 professional AI agents</li>
+        <li>Parallel execution support</li>
+        <li>Iteration optimization</li>
+        <li>UI refinement</li>
+        <li>Tool window with real-time progress</li>
+        <li>Settings page for configuration</li>
+    </ul>
+    ]]></change-notes>
+
+    <!-- Product and Plugin Compatibility Requirements -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- Extension Points -->
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Tool Window -->
+        <toolWindow 
+            id="DevTeam" 
+            anchor="bottom" 
+            factoryClass="com.devteam.idea.ui.DevTeamToolWindowFactory"
+            icon="/icons/devteam.svg"/>
+        
+        <!-- Settings -->
+        <projectConfigurable 
+            instance="com.devteam.idea.settings.DevTeamSettingsConfigurable"
+            displayName="DevTeam"
+            groupId="tools"/>
+        
+        <!-- Services -->
+        <projectService 
+            serviceImplementation="com.devteam.idea.services.DevTeamService"/>
+        <projectService 
+            serviceImplementation="com.devteam.idea.services.ConfigService"/>
+    </extensions>
+
+    <!-- Actions -->
+    <actions>
+        <group id="DevTeam.Menu" text="DevTeam" popup="true" icon="/icons/devteam.svg">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            
+            <action 
+                id="DevTeam.QuickDev" 
+                class="com.devteam.idea.actions.QuickDevAction"
+                text="🚀 Quick Development"
+                description="Quick development with parallel execution">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt D"/>
+            </action>
+            
+            <action 
+                id="DevTeam.Parallel" 
+                class="com.devteam.idea.actions.ParallelDevAction"
+                text="⚡ Parallel Development"
+                description="Parallel execution (3-5x faster)"/>
+            
+            <action 
+                id="DevTeam.Iterate" 
+                class="com.devteam.idea.actions.IterateAction"
+                text="🔄 Iterate Optimization"
+                description="Iterate until all issues fixed"/>
+            
+            <action 
+                id="DevTeam.Refine" 
+                class="com.devteam.idea.actions.RefineAction"
+                text="🎨 UI Refinement"
+                description="Interactive UI optimization"/>
+            
+            <separator/>
+            
+            <action 
+                id="DevTeam.Settings" 
+                class="com.devteam.idea.actions.OpenSettingsAction"
+                text="⚙️ Settings"
+                description="Configure DevTeam"/>
+        </group>
+    </actions>
+</idea-plugin>

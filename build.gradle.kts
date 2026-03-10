@@ -8,6 +8,15 @@ group = "com.devteam"
 version = "3.0.0"
 
 repositories {
+    // 阿里云镜像（国内加速）
+    maven { url = uri("https://maven.aliyun.com/repository/public") }
+    maven { url = uri("https://maven.aliyun.com/repository/gradle-plugin") }
+    maven { url = uri("https://maven.aliyun.com/repository/spring") }
+    maven { url = uri("https://maven.aliyun.com/repository/spring-plugin") }
+    maven { url = uri("https://maven.aliyun.com/repository/google") }
+    maven { url = uri("https://maven.aliyun.com/repository/jcenter") }
+    
+    // 备用：Maven中央仓库
     mavenCentral()
 }
 
